@@ -1,12 +1,14 @@
 query UserSearch{
     search(first: 10, query: "skevy", type: USER) {
         nodes {
-            ... on User {
-                name
-                avatarUrl
-                bio
-                bioHTML
-            }
+            ... User
         }
     }
+}
+
+fragment User on User{
+    name
+    avatarUrl
+    bio
+    bioHTML
 }

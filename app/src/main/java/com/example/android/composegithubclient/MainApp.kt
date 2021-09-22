@@ -2,6 +2,7 @@ package com.example.android.composegithubclient
 
 import android.app.Application
 import com.example.android.composegithubclient.di.networkModule
+import com.example.android.composegithubclient.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -11,7 +12,7 @@ class MainApp : Application() {
 
         startKoin {
             androidContext(this@MainApp)
-            modules(networkModule)
+            modules(networkModule, viewModelModule)
         }
     }
 

@@ -1,5 +1,5 @@
-query UserSearch{
-    search(first: 10, query: "skevy", type: USER) {
+query UserSearch($userName: String!){
+    search(first: 10, query: $userName, type: USER) {
         nodes {
             ... User
         }

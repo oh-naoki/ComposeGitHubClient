@@ -20,9 +20,9 @@ class MainViewModel(
         fetchUsers()
     }
 
-    fun fetchUsers() {
+    fun fetchUsers(userName: String = "oh-naoki") {
         viewModelScope.launch {
-            val result = apolloClient.query(UserSearchQuery())
+            val result = apolloClient.query(UserSearchQuery(userName = userName))
 
             users.value = result.data?.search?.nodes?.map { it?.user()!! }
             errors.value = result.hasErrors()

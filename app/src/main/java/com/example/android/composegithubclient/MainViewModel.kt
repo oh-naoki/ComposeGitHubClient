@@ -14,13 +14,19 @@ class MainViewModel(
 ) : ViewModel() {
 
     val users = mutableStateOf<List<User>?>(emptyList())
+    val searchText = mutableStateOf("")
     val errors = mutableStateOf(false)
 
     init {
         fetchUsers()
     }
 
-    fun fetchUsers(userName: String = "oh-naoki") {
+    fun searchUser(userName: String) {
+        searchText.value = userName
+        fetchUsers(userName = userName)
+    }
+
+    private fun fetchUsers(userName: String = "oh-naoki") {
         viewModelScope.launch {
             val result = apolloClient.query(UserSearchQuery(userName = userName))
 

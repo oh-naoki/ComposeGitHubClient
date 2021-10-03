@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,12 +31,43 @@ class MainActivity : ComponentActivity() {
             ComposeGitHubClientTheme {
                 val viewModel = getViewModel<MainViewModel>()
 
-                viewModel.users.value?.let {
-                    UserList(users = it)
-                }
+                MainScreen(
+                    users = viewModel.users.value,
+                    searchText = viewModel.searchText.value,
+                    onSearchTextChanged = viewModel::searchUser
+                )
             }
         }
     }
+}
+
+@ExperimentalMaterialApi
+@Composable
+private fun MainScreen(
+    users: List<User>?,
+    searchText: String,
+    onSearchTextChanged: (String) -> Unit
+) {
+    Column {
+        UserSearchInput(
+            text = searchText,
+            onTextChanged = onSearchTextChanged
+        )
+        users?.let {
+            UserList(users = it)
+        }
+    }
+}
+
+@Composable
+private fun UserSearchInput(
+    text: String,
+    onTextChanged: (String) -> Unit
+) {
+    TextField(
+        value = text,
+        onValueChange = onTextChanged
+    )
 }
 
 @ExperimentalMaterialApi

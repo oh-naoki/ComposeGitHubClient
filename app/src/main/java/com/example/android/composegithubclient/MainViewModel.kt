@@ -30,7 +30,7 @@ class MainViewModel(
         viewModelScope.launch {
             val result = apolloClient.query(UserSearchQuery(userName = userName))
 
-            users.value = result.data?.search?.nodes?.map { it?.user()!! }
+            users.value = result.data?.search?.nodes?.mapNotNull { it?.user() }
             errors.value = result.hasErrors()
         }
     }

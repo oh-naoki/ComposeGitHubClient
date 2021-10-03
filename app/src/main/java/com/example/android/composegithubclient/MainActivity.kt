@@ -48,11 +48,17 @@ private fun MainScreen(
     searchText: String,
     onSearchTextChanged: (String) -> Unit
 ) {
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         UserSearchInput(
             text = searchText,
             onTextChanged = onSearchTextChanged
         )
+        Spacer(modifier = Modifier.size(32.dp))
         users?.let {
             UserList(users = it)
         }
@@ -64,10 +70,13 @@ private fun UserSearchInput(
     text: String,
     onTextChanged: (String) -> Unit
 ) {
-    TextField(
+    OutlinedTextField(
         value = text,
-        onValueChange = onTextChanged
-    )
+        onValueChange = onTextChanged,
+        maxLines = 1,
+        singleLine = true,
+        
+        )
 }
 
 @ExperimentalMaterialApi
